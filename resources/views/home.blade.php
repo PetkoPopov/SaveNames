@@ -19,5 +19,6 @@
             </div>
         </div>
     </div>
+    <a href="names">all names</a>
 </div>
 @endsection

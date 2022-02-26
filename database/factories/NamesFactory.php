@@ -16,7 +16,8 @@ class NamesFactory extends Factory
         return [
             'name'=>$this->faker->name(),
            'age'=>rand(10,66),
-            'explenation'=>Str::random(3)
+            'explenation'=>Str::random(3),
+                'ocupation'=>Str::random(5)
         ];
     }
 }
