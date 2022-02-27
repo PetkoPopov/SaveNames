@@ -30,7 +30,9 @@ Route::get('/sortById', [\App\Http\Controllers\NamesController::class, 'sortById
 Route::view('/create', 'newname');
 Route::post('/create', [\App\Http\Controllers\NamesController::class, 'create']);
 
-Auth::routes();
+//Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/name/{id}' , [\App\Http\Controllers\NamesController::class , 'findById']);
+Route::get('update/{id}', [\App\Http\Controllers\NamesController::class , 'updateForm']);
+Route::post("update/update" , [\App\Http\Controllers\NamesController::class , "updateName"]);

@@ -10,3 +10,4 @@
 </p><p>
     {{    $name->age  }}
 </p>
+<a href="/update/{{$name->id}}" >Update {{$name->name}}</a>

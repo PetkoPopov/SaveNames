@@ -16,6 +16,7 @@
     AGE:
     <input type='number' name='age'/>
     <p></p>
-        <input type="submit" value="XCUTTER"/>
-    
+    <input type="submit" value="XCUTTER"/>    
 </form>
+<div>
+     <a href="names">All Names</a></div>

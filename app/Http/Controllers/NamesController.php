@@ -136,33 +136,7 @@ class NamesController extends Controller {
     $newName->save();
         return redirect('names');
     }
-
-    
-    
-    
-    
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoreNamesRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(StoreNamesRequest $request) {
-        //
-    }
-
   
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Names  $names
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Names $names) {
-        //
-    }
-
     /**
      * Update the specified resource in storage.
      *
@@ -170,8 +144,30 @@ class NamesController extends Controller {
      * @param  \App\Models\Names  $names
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateNamesRequest $request, Names $names) {
-        //
+    public function updateForm($id) {
+//        dump($req);die;
+       $name = Names::find($id);
+       
+       return view('update')->with(['name'=>$name]);
+    }
+   
+    public function updateName(\Illuminate\Http\Request  $r) {
+//        dump($r->id);die;
+        $id = (int)$r->id;
+//        dump($id);die;
+//        DB::table('names')->select("update namesave.names set name=$r->name,ocupation= $r->ocupation,explenation=$r->explenation,age=$r->age"
+//                . " where id=$id");
+        $name = Names::find($id);
+        $name->name = $r->name;
+        $name->ocupation= $r->ocupation;
+        $name->explenation=$r->explenation;
+        $name->age=$r->age;
+       
+        $name->save();
+        
+        
+        return redirect('names');
+        
     }
 
     /**

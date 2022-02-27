@@ -13,6 +13,5 @@
 
 <center><a href="/name/{{ $name->id }}">{{$name->name}}---age are {{$name->age}}---ocupation  {{$name->ocupation}}---{{$name->id}}</a></center>
 <br>
-
 @endforeach
 </div>
