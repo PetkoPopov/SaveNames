@@ -26,7 +26,7 @@ Route::get('/sortByAge', [\App\Http\Controllers\NamesController::class, 'sortByA
 Route::get('/sortByName', [\App\Http\Controllers\NamesController::class, 'sortByName']);
 Route::get('/sortByOcupation', [\App\Http\Controllers\NamesController::class, 'sortByOcupation']);
 Route::get('/sortById', [\App\Http\Controllers\NamesController::class, 'sortById']);
-//Route::get('/create',[\App\Http\Controllers\NamesController::class , 'create']);
+
 Route::view('/create', 'newname');
 Route::post('/create', [\App\Http\Controllers\NamesController::class, 'create']);
 
@@ -36,3 +36,9 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/name/{id}' , [\App\Http\Controllers\NamesController::class , 'findById']);
 Route::get('update/{id}', [\App\Http\Controllers\NamesController::class , 'updateForm']);
 Route::post("update/update" , [\App\Http\Controllers\NamesController::class , "updateName"]);
+
+Route::view('/kw/calc','kw/showForDate');
+Route::view('kw/create', 'kw/create');
+Route::post('/kw/store' ,[App\Http\Controllers\KwController::class, 'store']);
+Route::get('/calculate' , [App\Http\Controllers\KwController::class , 'calc']);
+Route::get("kw/{id}",[App\Http\Controllers\KwController::class , 'index']);
