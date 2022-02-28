@@ -9,5 +9,8 @@
     
 </form>
 <div>
-    <a href="/kw/1">go to Kw</a>
+    <a href="/kw/0">Покажи всичко</a>
+</div><!-- comment -->
+<div>
+    <a href="/showForMonth">Montly</a>
 </div>

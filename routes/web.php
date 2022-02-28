@@ -41,4 +41,7 @@ Route::view('/kw/calc','kw/showForDate');
 Route::view('kw/create', 'kw/create');
 Route::post('/kw/store' ,[App\Http\Controllers\KwController::class, 'store']);
 Route::get('/calculate' , [App\Http\Controllers\KwController::class , 'calc']);
+
+Route::view('showForMonth','kw/calcForMonth');
+Route::get('/kw/calcForMonth',[App\Http\Controllers\KwController::class, 'calcForMonth']);
 Route::get("kw/{id}",[App\Http\Controllers\KwController::class , 'index']);

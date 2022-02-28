@@ -9,7 +9,9 @@
      <a href="/kw/create">Insert new Data</a><!-- comment -->
      ===============
      <a href="/kw/calc"> go to Search Date</a>
- </div>
+     ===============
+     <a href="showForMonth">Montly</a>
+      </div>
  <p>PAGES
   @for($i=0;$i<$pages;$i++)
   <a href="/kw/{{$i}}"><small>_/_{{$i}}_/_</small></a>

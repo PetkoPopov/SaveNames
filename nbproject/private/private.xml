@@ -3,12 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/xampp/htdocs/NameSave/database/seeders/NamesSeeder.php</file>
-            <file>file:/C:/xampp/htdocs/NameSave/app/Models/Names.php</file>
-            <file>file:/C:/xampp/htdocs/NameSave/database/factories/NamesFactory.php</file>
-            <file>file:/C:/xampp/htdocs/NameSave/database/seeders/FakeSeeder.php</file>
-            <file>file:/C:/xampp/htdocs/NameSave/database/migrations/2022_02_21_162020_create_fakes_table.php</file>
-            <file>file:/C:/xampp/htdocs/NameSave/database/migrations/2022_02_21_104600_create_names_table.php</file>
+            <file>file:/C:/xampp/htdocs/NameSave/resources/views/Kw/showLastCalc.blade.php</file>
+            <file>file:/C:/xampp/htdocs/NameSave/resources/views/Kw/showForMonth.blade.php</file>
+            <file>file:/C:/xampp/htdocs/NameSave/resources/views/Kw/showKw.blade.php</file>
+            <file>file:/C:/xampp/htdocs/NameSave/app/Http/Controllers/KwController.php</file>
+            <file>file:/C:/xampp/htdocs/NameSave/resources/views/Kw/calcForMonth.blade.php</file>
+            <file>file:/C:/xampp/htdocs/NameSave/routes/web.php</file>
+            <file>file:/C:/xampp/htdocs/NameSave/resources/views/Kw/showForDate.blade.php</file>
         </group>
     </open-files>
 </project-private>

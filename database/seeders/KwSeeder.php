@@ -13,7 +13,7 @@ class KwSeeder extends Seeder
      */
     public function run()
     {
-        Kw::factory(340)
+        Kw::factory(3400)
                 
                 ->create();
     }
