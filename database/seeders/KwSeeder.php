@@ -13,8 +13,11 @@ class KwSeeder extends Seeder
      */
     public function run()
     {
-        Kw::factory(3400)
-                
+        
+        for($i =0 ; $i <35 ;$i++){
+           
+        Kw::factory(1)        
                 ->create();
+        }
     }
 }

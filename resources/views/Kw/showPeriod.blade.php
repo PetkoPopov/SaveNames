@@ -1,11 +1,8 @@
-@extends('../../base')
-<h4>PAGE Number {{$pageNumber}}</h4> 
-@foreach($kwChunk[$pageNumber] as $k)
- <p>
-     <a href="/kw/calc">{{$k->date}}____{{$k->kw}}____{{$k->id}}</a>
- </p>
- 
- @endforeach
+<p><a>последна дата {{$end->date}} с отчетени {{$end->kw}} kw</a>
+</p><!-- comment -->
+<p><a>първата дата {{$start->date}} е с отчетени  {{$start->kw}} kw </a>
+</p>
+<a> общо {{$total}} kw</a>
  <div>
      <a href="/kw/create">Въведи данни</a><!-- comment -->
      ==========
@@ -18,8 +15,3 @@
      ===========<!-- comment -->
      <a href="/kw/0"> покажи всички записи</a>
       </div>
- <p>PAGES
-  @for($i=0;$i<$pages;$i++)
-  <a href="/kw/{{$i}}"><small>_/_{{$i}}_/_</small></a>
-  @endfor
- </p>

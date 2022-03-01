@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kw;
-use App\Http\Requests\StoreKwRequest;
 use Illuminate\Support\Facades\DB;
+
 class KwController extends Controller
 {
     /**
@@ -44,6 +44,12 @@ class KwController extends Controller
 
     public function store(\Illuminate\Http\Request $request)
     {
+        
+        $lastKw = DB::select("select kw from namesave.kws order by(id)desc limit 1 ");
+//        dump($request->kw,$lastKw[0]->kw);die;
+        if((int)$request->kw < $lastKw[0]->kw){
+            return view('/kw/create')->with(['msg'=>'Въведете по голяма стойност от '.$lastKw[0]->kw , 'kw'=>$lastKw[0]->kw]);
+        }
         $kw = new Kw();
         $kw->kw=$request->kw;
         $kw->date=$request->date;
@@ -95,8 +101,6 @@ class KwController extends Controller
     {
         //
     }
-    
-
 /**
  * 
  * @param \Illuminate\Http\Request $request
@@ -114,10 +118,15 @@ class KwController extends Controller
          }
          $kwT = DB::select("select * from namesave.kws where date='$date'");
          $kwToday= $kwT[0]->kw;
-         echo'</br>'; 
-         echo $id = $todayId[0]->id -1 ;
-         echo'</br>';
-         $prevDay = DB::select("select * from namesave.kws where id = '$id'");
+         
+         $id = $todayId[0]->id  ;
+         //в случай че имаш изтрити записи предишно Id не е id-1 а е заявката по долу :)
+         //                                                  |
+         //                                                \ | /
+         //                                                 \|/
+         $prevDay = DB::select("select * from namesave.kws where id < '$id' order by(id)desc limit 1");
+         
+//         $prevDay = DB::select("select * from namesave.kws where id = '$id'");
 //         dump($prevDay);die;
          $kwPrevDay = $prevDay[0]->kw;
          $total = $kwToday-$kwPrevDay ;
@@ -126,8 +135,6 @@ class KwController extends Controller
         return view('kw/showLastCalc')->with(['kwToday'=>$kwT,'prevDate'=>$prevDay , 'total'=>$total]);
         
     }
-    
-    
     public function calcForMonth(\Illuminate\Http\Request $request) {
         
         $month = $request->month ;
@@ -143,11 +150,29 @@ class KwController extends Controller
         $dateEnd = $year.'-'.$m.'-00';
 //        dump($dateEnd);die;
         $allForMonth = DB::select("select * from namesave.kws where date > '$dateStart' and date < '$dateEnd'");
-        $allReccordsThatMonth= count($allForMonth);
+        if(count($allForMonth) == 0 ){
+            return view('kw/showForMonth')->with(['msg'=>'Няма записи']);
+        }
+        $allReccordsThatMonth = count($allForMonth);
+        
         $totalKw = $allForMonth[$allReccordsThatMonth-1]->kw - $allForMonth[0]->kw;
         $totalKw =  round($totalKw,2);
         return view('kw/showForMonth')
               ->with(['dateEnd'=>$allForMonth[$allReccordsThatMonth-1] , 'dateStart'=>$allForMonth[0],'allForMonth'=>$allForMonth ,'month'=>$month,'total'=>$totalKw]);
         
     }
+    public function calcPeriod(\Illuminate\Http\Request $request) {
+        $start = $request->periodStart ;
+        $end = $request->periodEnd;
+        
+        $kwStart = DB::select("select * from namesave.kws where date > '$start' order by(date) limit 1 ") ;
+        $kwEnd = DB::select("select * from namesave.kws where date < '$end' order by(date) desc limit 1");
+//        dump ($kwStart[0]->kw,$kwEnd[0]->kw);
+        $total = $kwEnd[0]->kw - $kwStart[0]->kw;
+        
+        return view('/kw/showPeriod')->with(['total'=>$total , 'start'=>$kwStart[0] ,'end'=>$kwEnd[0] ]);
+        
+    }
+    
+    
 }

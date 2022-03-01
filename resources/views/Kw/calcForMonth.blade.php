@@ -6,10 +6,15 @@
     
     
 </form>
-<div>
-    <a href="/kw/create">Въведи Данни</a>
-</div>
-
-<div>
-    <a href="/kw/0">Покажи всичко</a>
-</div>
+ <div>
+     <a href="/kw/create">Въведи данни</a><!-- comment -->
+     ==========
+     <a href="/kw/calc">избери ден</a>
+     ==========
+        
+     <a href="/showForMonth">избери месец</a>
+     ==========<!-- comment -->
+     <a href="/kw/period">избери период </a><!-- comment -->
+     ===========<!-- comment -->
+     <a href="/kw/0"> покажи всички записи</a>
+      </div>

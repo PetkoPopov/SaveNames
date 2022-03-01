@@ -38,10 +38,13 @@ Route::get('update/{id}', [\App\Http\Controllers\NamesController::class , 'updat
 Route::post("update/update" , [\App\Http\Controllers\NamesController::class , "updateName"]);
 
 Route::view('/kw/calc','kw/showForDate');
-Route::view('kw/create', 'kw/create');
+Route::view('/kw/create', 'kw/create');
 Route::post('/kw/store' ,[App\Http\Controllers\KwController::class, 'store']);
 Route::get('/calculate' , [App\Http\Controllers\KwController::class , 'calc']);
 
 Route::view('showForMonth','kw/calcForMonth');
 Route::get('/kw/calcForMonth',[App\Http\Controllers\KwController::class, 'calcForMonth']);
+Route::view('/kw/period','kw/getPeriod');
+Route::get('/kw/calcPeriod',[App\Http\Controllers\KwController::class , 'calcPeriod']);
+Route::view('/kw/showPeriod','/kw/showPeriod');
 Route::get("kw/{id}",[App\Http\Controllers\KwController::class , 'index']);

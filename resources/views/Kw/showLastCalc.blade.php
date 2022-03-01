@@ -9,14 +9,15 @@
     разликата в потреблението е <h2>{{$total}}</h2> [kw]
 </p>
 @endif
-
-<p>
-<a href="/kw/calc">new Search</a>
-</p>
-<p>
-    <a href="showForMonth">Montly </a>
-</p>
-
 <div>
-    <a href="/kw/0">Покажи всичко</a>
-</div>
+     <a href="/kw/create">Въведи данни</a><!-- comment -->
+     ==========
+     <a href="/kw/calc">избери ден</a>
+     ==========
+        
+     <a href="/showForMonth">избери месец</a>
+     ==========<!-- comment -->
+     <a href="/kw/period">избери период </a><!-- comment -->
+     ===========<!-- comment -->
+     <a href="/kw/0"> покажи всички записи</a>
+      </div>
