@@ -15,30 +15,33 @@ class NamesController extends Controller {
     private $sortByOcupate = '';
     private $sortByAge = '';
     private $sortByName = '';
+    private $length = 15;
+    private $allNames = [];
 
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index() {
+    public function index($page = 0) {
+
 
         $names = Names::all();
         foreach ($names as $nameObject) {
             $allNames[] = $nameObject;
         }
-        return view('names')->with(['allNames' => $allNames]);
+
+
+        $pages = ceil(count($allNames) / $this->length);
+        $allNames = array_chunk($allNames, $this->length);
+        return view('names')->with(['allNames' => $allNames[$page], "page" => $page, 'pages' => $pages]);
     }
 
-    public function getAge() {
-        $names = Names::all();
-        foreach ($names as $name) {
-            $allAge[] = $name->age;
-        }
-        return view('age')->with(['age' => $allAge]);
-    }
 
-    public function sortById() {
+  
+
+    public function sortById($page) {
+//        echo "SORT";die;
         $sort = Sort::find(1);
         $sortStatus = $sort->sortById;
         // select * from namesave.names Order by('age') ASC DESC ;
@@ -50,13 +53,16 @@ class NamesController extends Controller {
             $names = DB::select('select * from namesave.names order by(id) desc');
             DB::select("update namesave.sorts set sortById='asc' where id=1 ");
         }
+
         foreach ($names as $name) {
             $allNames[] = $name;
         }
-        return view('names')->with(['allNames' => $allNames]);
+        $pages = ceil(count($allNames) / $this->length);
+        $allNames = array_chunk($allNames, $this->length);
+        return view('names')->with(['allNames' => $allNames[$page], "page" => $page, 'pages' => $pages,'sortBy'=>'Id']);
     }
 
-    public function sortByAge() {
+    public function sortByAge($page) {
 
         $sort = Sort::find(1);
         $sortStatus = $sort->sortByAge;
@@ -72,11 +78,12 @@ class NamesController extends Controller {
         foreach ($names as $name) {
             $namesByAge[] = $name;
         }
-
-        return view('names')->with(["allNames" => $namesByAge]);
+         $pages = ceil(count($allNames) / $this->length);
+        $allNames = array_chunk($allNames, $this->length);
+        return view('names')->with(['allNames' => $allNames[$page], "page" => $page, 'pages' => $pages,'sortBy'=>'Age']);
     }
 
-    public function sortByName() {
+    public function sortByName($page) {
 
         $sort = Sort::find(1);
         $sortStatus = $sort->sortByName;
@@ -92,10 +99,13 @@ class NamesController extends Controller {
         foreach ($names as $name) {
             $allNames[] = $name;
         }
-        return view('names')->with(['allNames' => $allNames]);
+        
+         $pages = ceil(count($allNames) / $this->length);
+        $allNames = array_chunk($allNames, $this->length);
+        return view('names')->with(['allNames' => $allNames[$page], "page" => $page, 'pages' => $pages,'sortBy'=>'Name']);
     }
 
-    public function sortByOcupation() {
+    public function sortByOcupation($page) {
         $sort = Sort::find(1);
         $sortStatus = $sort->sortByOcupation;
         // select * from namesave.names Order by('age') ASC DESC ;
@@ -110,7 +120,9 @@ class NamesController extends Controller {
         foreach ($names as $name) {
             $allNames[] = $name;
         }
-        return view('names')->with(['allNames' => $allNames]);
+        $pages = ceil(count($allNames) / $this->length);
+        $allNames = array_chunk($allNames, $this->length);
+        return view('names')->with(['allNames' => $allNames[$page], "page" => $page, 'pages' => $pages , 'sortBy'=>'Ocupation']);
     }
 
     /**
@@ -120,23 +132,23 @@ class NamesController extends Controller {
      */
     public function create(\Illuminate\Http\Request $request) {
 
-    $newName = new Names();
-   
-    $newName->name = $request->name;
-    $newName->explenation = $request->explenation;
-    $newName->ocupation=$request->ocupation;
-    $newName->quote = $request->quote;
-    $newName->age = $request->age;
-    
+        $newName = new Names();
+
+        $newName->name = $request->name;
+        $newName->explenation = $request->explenation;
+        $newName->ocupation = $request->ocupation;
+        $newName->quote = $request->quote;
+        $newName->age = $request->age;
+
 //    dump($newName);die;
 //    
 //    DB::insert("insert into namesave.names (name,explenation,ocupation,quote,age) "
 //            . "values('$newName->name' ,'$newName->explenation','$newName->ocupation','$newName->quote','$newName->age')");
 //    
-    $newName->save();
-        return redirect('names');
+        $newName->save();
+        return redirect('names/0');
     }
-  
+
     /**
      * Update the specified resource in storage.
      *
@@ -146,28 +158,26 @@ class NamesController extends Controller {
      */
     public function updateForm($id) {
 //        dump($req);die;
-       $name = Names::find($id);
-       
-       return view('update')->with(['name'=>$name]);
+        $name = Names::find($id);
+
+        return view('/update')->with(['name' => $name]);
     }
-   
-    public function updateName(\Illuminate\Http\Request  $r) {
+
+    public function updateName(\Illuminate\Http\Request $r) {
 //        dump($r->id);die;
-        $id = (int)$r->id;
+        $id = (int) $r->id;
 //        dump($id);die;
 //        DB::table('names')->select("update namesave.names set name=$r->name,ocupation= $r->ocupation,explenation=$r->explenation,age=$r->age"
 //                . " where id=$id");
         $name = Names::find($id);
         $name->name = $r->name;
-        $name->ocupation= $r->ocupation;
-        $name->explenation=$r->explenation;
-        $name->age=$r->age;
-       
+        $name->ocupation = $r->ocupation;
+        $name->explenation = $r->explenation;
+        $name->age = $r->age;
+
         $name->save();
-        
-        
-        return redirect('names');
-        
+
+        return redirect('/names/0');
     }
 
     /**
@@ -179,9 +189,18 @@ class NamesController extends Controller {
     public function destroy(Names $names) {
         //
     }
-    public function  findById($id) {
+
+    public function findById($id) {
         $name = Names::find($id);
-        return view('byId')->with(['name'=>$name]);
+        return view('byId')->with(['name' => $name]);
+    }
+
+    public function getAge() {
+        $names = Names::all();
+        foreach ($names as $name) {
+            $allAge[] = $name->age;
+        }
+        return view('age')->with(['allAge' => $allAge]);
     }
 
 }
