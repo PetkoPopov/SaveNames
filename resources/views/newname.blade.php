@@ -19,4 +19,4 @@
     <input type="submit" value="XCUTTER"/>    
 </form>
 <div>
-     <a href="names">All Names</a></div>
+     <a href="/names/0/Id">All Names</a></div>

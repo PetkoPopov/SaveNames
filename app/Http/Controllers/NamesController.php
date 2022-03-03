@@ -17,112 +17,83 @@ class NamesController extends Controller {
     private $sortByName = '';
     private $length = 15;
     private $allNames = [];
+    private $sortById;
 
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($page = 0) {
+    public function index($page, $sortBy) {
+        $sortByQuery = 'sortBy' . $sortBy;
+        $sortStatus = DB::select("select $sortByQuery from namesave.sorts");
+        $statusAsc = $sortStatus[0]->{$sortByQuery};
+//        dump($sortStatus[0]);die;
 
-
-        $names = Names::all();
-        foreach ($names as $nameObject) {
-            $allNames[] = $nameObject;
+        $names = DB::select("select * from namesave.names order by($sortBy)$statusAsc");
+        foreach ($names as $n) {
+            $allNames[] = $n;
         }
 
 
         $pages = ceil(count($allNames) / $this->length);
         $allNames = array_chunk($allNames, $this->length);
-        return view('names')->with(['allNames' => $allNames[$page], "page" => $page, 'pages' => $pages]);
+
+        return view('names')->with(['allNames' => $allNames[$page], "page" => $page, 'pages' => $pages, 'sortBy' => $sortBy]);
     }
 
-
-  
-
-    public function sortById($page) {
-//        echo "SORT";die;
+    public function sortById() {
         $sort = Sort::find(1);
         $sortStatus = $sort->sortById;
-        // select * from namesave.names Order by('age') ASC DESC ;
-        if ($sortStatus == "asc") {
-            $names = DB::select('select * from namesave.names order by(id)');
 
+        if ($sortStatus == "asc") {
             DB::select("update namesave.sorts set sortById='desc' where id=1");
         } else {
-            $names = DB::select('select * from namesave.names order by(id) desc');
             DB::select("update namesave.sorts set sortById='asc' where id=1 ");
         }
-
-        foreach ($names as $name) {
-            $allNames[] = $name;
-        }
-        $pages = ceil(count($allNames) / $this->length);
-        $allNames = array_chunk($allNames, $this->length);
-        return view('names')->with(['allNames' => $allNames[$page], "page" => $page, 'pages' => $pages,'sortBy'=>'Id']);
+        return redirect("/names/0/Id");
     }
 
-    public function sortByAge($page) {
+    public function sortByAge() {
 
         $sort = Sort::find(1);
         $sortStatus = $sort->sortByAge;
-        // select * from namesave.names Order by('age') ASC DESC ;
+
         if ($sortStatus == "asc") {
-            $names = DB::select('select * from namesave.names order by(age) asc');
 
             DB::select("update namesave.sorts set sortByAge='desc' where id=1");
         } else {
-            $names = DB::select('select * from namesave.names order by(age) desc');
             DB::select("update namesave.sorts set sortByAge='asc' where id=1 ");
         }
-        foreach ($names as $name) {
-            $namesByAge[] = $name;
-        }
-         $pages = ceil(count($allNames) / $this->length);
-        $allNames = array_chunk($allNames, $this->length);
-        return view('names')->with(['allNames' => $allNames[$page], "page" => $page, 'pages' => $pages,'sortBy'=>'Age']);
+        return redirect('names/0/Age');
     }
 
-    public function sortByName($page) {
+    public function sortByName() {
 
         $sort = Sort::find(1);
         $sortStatus = $sort->sortByName;
         // select * from namesave.names Order by('age') ASC DESC ;
         if ($sortStatus == "asc") {
-            $names = DB::select('select * from namesave.names order by(name) asc');
-
             DB::select("update namesave.sorts set sortByName='desc' where id=1");
         } else {
-            $names = DB::select('select * from namesave.names order by(name) desc');
             DB::select("update namesave.sorts set sortByName='asc' where id=1 ");
         }
-        foreach ($names as $name) {
-            $allNames[] = $name;
-        }
-        
-         $pages = ceil(count($allNames) / $this->length);
-        $allNames = array_chunk($allNames, $this->length);
-        return view('names')->with(['allNames' => $allNames[$page], "page" => $page, 'pages' => $pages,'sortBy'=>'Name']);
+       
+        return redirect('/names/0/Name');
     }
 
-    public function sortByOcupation($page) {
+    public function sortByOcupation() {
         $sort = Sort::find(1);
         $sortStatus = $sort->sortByOcupation;
         // select * from namesave.names Order by('age') ASC DESC ;
         if ($sortStatus == "asc") {
-            $names = DB::select('select * from namesave.names order by(ocupation) asc');
-
             DB::select("update namesave.sorts set sortByOcupation='desc' where id=1");
         } else {
-            $names = DB::select('select * from namesave.names order by(ocupation) desc');
+
             DB::select("update namesave.sorts set sortByOcupation='asc' where id=1 ");
         }
-        foreach ($names as $name) {
-            $allNames[] = $name;
-        }
-        $pages = ceil(count($allNames) / $this->length);
-        $allNames = array_chunk($allNames, $this->length);
-        return view('names')->with(['allNames' => $allNames[$page], "page" => $page, 'pages' => $pages , 'sortBy'=>'Ocupation']);
+
+        return redirect('/names/0/Ocupation');
     }
 
     /**

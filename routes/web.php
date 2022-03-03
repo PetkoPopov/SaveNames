@@ -2,16 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-/*
-  |--------------------------------------------------------------------------
-  | Web Routes
-  |--------------------------------------------------------------------------
-  |
-  | Here is where you can register web routes for your application. These
-  | routes are loaded by the RouteServiceProvider within a group which
-  | contains the "web" middleware group. Now create something great!
-  |
- */
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -22,10 +13,10 @@ Route::view('/test','test');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::get('/age', [\App\Http\Controllers\NamesController::class, 'getAge']);
-Route::get('/names/sortByAge/{page}', [\App\Http\Controllers\NamesController::class, 'sortByAge']);
-Route::get('/names/sortByName/{page}', [\App\Http\Controllers\NamesController::class, 'sortByName']);
-Route::get('/names/sortByOcupation/{page}', [\App\Http\Controllers\NamesController::class, 'sortByOcupation']);
-Route::get('/names/sortById/{page}', [\App\Http\Controllers\NamesController::class, 'sortById']);
+Route::get('/names/sortByAge', [\App\Http\Controllers\NamesController::class, 'sortByAge']);
+Route::get('/names/sortByName', [\App\Http\Controllers\NamesController::class, 'sortByName']);
+Route::get('/names/sortByOcupation', [\App\Http\Controllers\NamesController::class, 'sortByOcupation']);
+Route::get('/names/sortById', [\App\Http\Controllers\NamesController::class, 'sortById']);
 
 Route::view('/create', 'newname');
 Route::post('/create', [\App\Http\Controllers\NamesController::class, 'create']);
@@ -45,4 +36,4 @@ Route::view('/kw/period','kw/getPeriod');
 Route::get( '/kw/calcPeriod',[App\Http\Controllers\KwController::class , 'calcPeriod']);
 Route::view('/kw/showPeriod','/kw/showPeriod');
 Route::get( "/kw/{id}",[App\Http\Controllers\KwController::class , 'index']);
-Route::get( '/names/{page}', [\App\Http\Controllers\NamesController::class, 'index']);
+Route::get( '/names/{page}/{sortBy}', [\App\Http\Controllers\NamesController::class, 'index']);
