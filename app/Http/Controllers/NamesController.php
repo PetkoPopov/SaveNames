@@ -15,7 +15,7 @@ class NamesController extends Controller {
     private $sortByOcupate = '';
     private $sortByAge = '';
     private $sortByName = '';
-    private $length = 15;
+    private $length = 10;
     private $allNames = [];
     private $sortById;
 

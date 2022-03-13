@@ -22,6 +22,15 @@ class CreateNamesTable extends Migration
             $table->integer("age")->nullable();
             
         });
+//         Schema::create('cars', function (Blueprint $table) {
+//            $table->id();
+//            $table->unsignedInteger('names_id');
+//            $table->timestamps();
+//            $table->foreign('names_id')
+//                    ->references('id')
+//                    ->on('names')
+//                    ->onDelete('cascade');
+//        });
     }
 
     /**

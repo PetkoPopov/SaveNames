@@ -1,8 +1,8 @@
 <form action="/kw/calcPeriod">
     <p>
-   избери начална дата: <input type="date" name="periodStart"/><!-- comment -->
+   от дата: <input type="date" name="periodStart"/><!-- comment -->
     </p><!-- comment -->
-   избери крайна дата: <input type="date"  name="periodEnd"/>
+   до  дата: <input type="date"  name="periodEnd"/>
     <input type="submit"/>
     
 </form>

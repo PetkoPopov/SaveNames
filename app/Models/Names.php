@@ -4,22 +4,18 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+use App\Models\Car;
 class Names extends Model
 {
     use HasFactory;
-   
+   protected $table = 'names';
+   protected $primeryKey = 'id';
+   //описваме колоните на таблицата 
+   protected $fillable=['name','explenation','ocupation','quote','age'];
     public $timestamps = false ;
-// Accessor  аксцесор се създава със get отпред и Attribute отзад   
-      
-//    public function getNameAttribute($value) {
-//    Това е пример от youtube може също да се играе с данните $param
-//        return $value." from Bulgaria";
-//    }
-//    public function getAgeAttribute($param) {
-//    
-//          return $param.( '___years old');
-//        
-//    }
+
+    public function getCars() {
+        return $this->hasMany(Car::class);
+    }
     
 }

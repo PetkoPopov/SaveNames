@@ -10,6 +10,9 @@ class KwPolicy
 {
     use HandlesAuthorization;
 
+//    public function __construct() {
+//        dd("IN KW POLICY");
+//    }
     /**
      * Determine whether the user can view any models.
      *
@@ -41,7 +44,7 @@ class KwPolicy
      */
     public function create(User $user)
     {
-        //
+        return $user->id === 2 ; 
     }
 
     /**
@@ -53,7 +56,7 @@ class KwPolicy
      */
     public function update(User $user, Kw $kw)
     {
-        //
+        return $user->id === 2;
     }
 
     /**
@@ -65,7 +68,8 @@ class KwPolicy
      */
     public function delete(User $user, Kw $kw)
     {
-        //
+        
+        return $user->id === 2;
     }
 
     /**
@@ -77,7 +81,8 @@ class KwPolicy
      */
     public function restore(User $user, Kw $kw)
     {
-        //
+        
+        return $user->id === 2;
     }
 
     /**
@@ -89,6 +94,7 @@ class KwPolicy
      */
     public function forceDelete(User $user, Kw $kw)
     {
-        //
+        
+        return $user->id === 2;
     }
 }

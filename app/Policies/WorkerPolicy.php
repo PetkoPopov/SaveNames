@@ -2,14 +2,17 @@
 
 namespace App\Policies;
 
-use App\Models\TesTime;
 use App\Models\User;
+use App\Models\Worker;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class TesTimePolicy
+class WorkerPolicy
 {
     use HandlesAuthorization;
 
+//    public function __construct() {
+//        dd("WORKER poLicy");
+//    }
     /**
      * Determine whether the user can view any models.
      *
@@ -25,12 +28,12 @@ class TesTimePolicy
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\TesTime  $tesTime
+     * @param  \App\Models\Worker  $worker
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, TesTime $tesTime)
+    public function view(User $user, Worker $worker)
     {
-        //
+        return $user->id === $worker->user_id || $user->id === 2;
     }
 
     /**
@@ -41,17 +44,18 @@ class TesTimePolicy
      */
     public function create(User $user)
     {
-        //
+        
+        return $user->id == 2; //само Петко създава нови Users
     }
 
     /**
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\TesTime  $tesTime
+     * @param  \App\Models\Worker  $worker
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, TesTime $tesTime)
+    public function update(User $user, Worker $worker)
     {
         //
     }
@@ -60,10 +64,10 @@ class TesTimePolicy
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\TesTime  $tesTime
+     * @param  \App\Models\Worker  $worker
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, TesTime $tesTime)
+    public function delete(User $user, Worker $worker)
     {
         //
     }
@@ -72,10 +76,10 @@ class TesTimePolicy
      * Determine whether the user can restore the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\TesTime  $tesTime
+     * @param  \App\Models\Worker  $worker
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(User $user, TesTime $tesTime)
+    public function restore(User $user, Worker $worker)
     {
         //
     }
@@ -84,10 +88,10 @@ class TesTimePolicy
      * Determine whether the user can permanently delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\TesTime  $tesTime
+     * @param  \App\Models\Worker  $worker
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(User $user, TesTime $tesTime)
+    public function forceDelete(User $user, Worker $worker)
     {
         //
     }

@@ -1,24 +1,29 @@
+
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div>
 
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
+<div style="background-color: #1299DA" class="container">
+    <div class="row">
+        <div class="col-md-4">
+        <a href="/kw/create"> go to KW insert DATA</a></div>
+          <div class="col-md-4"><a href="/names/0/id"> go to Names </a></div>
+          <div class="col-md-4"><a href="/worker/all"> work </a></div>
+        <div class="card-header">{{ __('Dashboard') }}</div>
 
-                    {{ __('You are logged in!') }}
-                </div>
-            </div>
+        @if (session('status'))
+        <div class="alert alert-success" role="alert">
+            {{ session('status') }}
         </div>
-    </div>
-    <a href="names">all names</a>
+        @endif
+
+        @can('create', \App\Model\Worker::class)
+
+        <a href="/worker/new" style='background-color: lightgreen;'> You authorise to create worker</a>
+
+        @endcan
+
+        <div>{{ __('You are logged in!') }}</div>
+    </div><!-- comment -->
 </div>
 @endsection

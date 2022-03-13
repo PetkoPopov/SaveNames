@@ -1,6 +1,6 @@
 @if(isset($msg))
 {{$msg}}
-<form  method="post" action="store">
+<form  method="post" action="create">
         @csrf
     <p>
         input KW:
@@ -16,7 +16,7 @@
     
 </form>
 @else
-<form  method="post" action="store">
+<form  method="post" action="create">
         @csrf
     <p>
         input KW:

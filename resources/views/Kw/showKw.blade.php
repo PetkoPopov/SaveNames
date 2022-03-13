@@ -1,11 +1,13 @@
-@extends('../../base')
-<h4>PAGE Number {{$pageNumber}}</h4> 
-@foreach($kwChunk[$pageNumber] as $k)
- <p>
-     <a href="/kw/calc">{{$k->date}}____{{$k->kw}}____{{$k->id}}</a>
- </p>
- 
- @endforeach
+
+<div>
+<h4>PAGE Number </h4> 
+@foreach( $kws as $k )
+<h3>{{$k->id}}___{{$k->kw}}</h3>
+
+@endforeach
+
+
+</div>
  <div>
      <a href="/kw/create">Въведи данни</a><!-- comment -->
      ==========
@@ -19,7 +21,5 @@
      <a href="/kw/0"> покажи всички записи</a>
       </div>
  <p>PAGES
-  @for($i=0;$i<$pages;$i++)
-  <a href="/kw/{{$i}}"><small>_/_{{$i}}_/_</small></a>
-  @endfor
+<span>{{$kws->links()}}</span> 
  </p>

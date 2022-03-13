@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\DB;
 
 class KwController extends Controller
 {
+    
+    private $pages=7;
     /**
      * Display a listing of the resource.
      *
@@ -14,22 +16,10 @@ class KwController extends Controller
      */
     public function index($id=0)
     {
-        $pageContinity=100;
-        $kw = Kw::all();
-//        dump($kw->getIterator('items')->getArrayCopy());die;
-        $count  = count($kw);
+      
+        $kw = Kw::paginate($this->pages);
 
-        if($count>100){
-            $pages = ceil($count/100);
-            
-            $kwChunk = array_chunk($kw->getIterator('items')->getArrayCopy(), $pageContinity /*number of pages*/);
-//            dump($kwChunk);die;
-        }else{
-            $kwChunk[0] = $kw;
-            $pages= 0;
-        }
-
-        return view('Kw/showKw')->with(['kwChunk'=>$kwChunk,'pages'=>$pages,'pageNumber'=>$id]);
+        return view('Kw/showKw',['kws'=>$kw]);
     }
 
     /**
@@ -37,14 +27,9 @@ class KwController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(\Illuminate\Http\Request $request)
     {
-        
-    }
-
-    public function store(\Illuminate\Http\Request $request)
-    {
-        
+        if($this->authorize('create',Kw::class)){
         $lastKw = DB::select("select kw from namesave.kws order by(id)desc limit 1 ");
 //        dump($request->kw,$lastKw[0]->kw);die;
         if((int)$request->kw < $lastKw[0]->kw){
@@ -53,8 +38,17 @@ class KwController extends Controller
         $kw = new Kw();
         $kw->kw=$request->kw;
         $kw->date=$request->date;
-        $kw->save();
+        $kw->save();}
+        else{
+            echo "NOT AUTHORISED";
+        }
         return redirect('kw/0');   
+    }
+
+    public function store(\Illuminate\Http\Request $request)
+    {
+        
+        
     }
 
     /**
@@ -165,10 +159,11 @@ class KwController extends Controller
         $start = $request->periodStart ;
         $end = $request->periodEnd;
         
-        $kwStart = DB::select("select * from namesave.kws where date > '$start' order by(date) limit 1 ") ;
-        $kwEnd = DB::select("select * from namesave.kws where date < '$end' order by(date) desc limit 1");
+        $kwStart = DB::select("select * from namesave.kws where date >= '$start' order by(date) limit 1 ") ;
+        $kwEnd = DB::select("select * from namesave.kws where date <= '$end' order by(date) desc limit 1");
 //        dump ($kwStart[0]->kw,$kwEnd[0]->kw);
         $total = $kwEnd[0]->kw - $kwStart[0]->kw;
+        $total = round($total,2);
         
         return view('/kw/showPeriod')->with(['total'=>$total , 'start'=>$kwStart[0] ,'end'=>$kwEnd[0] ]);
         

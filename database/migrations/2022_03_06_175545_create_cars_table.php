@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateFakesTable extends Migration
+class CreateCarsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,13 @@ class CreateFakesTable extends Migration
      */
     public function up()
     {
-        Schema::create('fakes', function (Blueprint $table) {
+        Schema::create('cars', function (Blueprint $table) {
             $table->id();
-            $table->string('fake');
+            $table->foreignId('names_id')
+                    ->constrained()
+                    ->onDelete('cascade');
             $table->timestamps();
+            
         });
     }
 
@@ -27,6 +30,6 @@ class CreateFakesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('fakes');
+        Schema::dropIfExists('cars');
     }
 }

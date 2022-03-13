@@ -27,7 +27,7 @@ Route::post("/update/update" , [\App\Http\Controllers\NamesController::class , "
 
 Route::view('/kw/calc','kw/showForDate');
 Route::view('/kw/create', 'kw/create');
-Route::post('/kw/store' ,[App\Http\Controllers\KwController::class, 'store']);
+Route::post('/kw/create' ,[App\Http\Controllers\KwController::class, 'create']);
 Route::get( '/calculate' , [App\Http\Controllers\KwController::class , 'calc']);
 
 Route::view('/showForMonth','kw/calcForMonth');
@@ -37,3 +37,9 @@ Route::get( '/kw/calcPeriod',[App\Http\Controllers\KwController::class , 'calcPe
 Route::view('/kw/showPeriod','/kw/showPeriod');
 Route::get( "/kw/{id}",[App\Http\Controllers\KwController::class , 'index']);
 Route::get( '/names/{page}/{sortBy}', [\App\Http\Controllers\NamesController::class, 'index']);
+//Route::view('/allCars','allCars');
+Route::get('/allCars',[App\Http\Controllers\CarController::class , 'index']);
+Route::get('/worker/new', [App\Http\Controllers\WorkerController::class , 'new']);
+Route::get('/worker/all',[App\Http\Controllers\WorkerController::class , 'index']);
+Route::get('/worker/create' , [App\Http\Controllers\WorkerController::class , 'create']);
+Route::get('/worker/delete/{id}' , [App\Http\Controllers\WorkerController::class, 'destroy']);
