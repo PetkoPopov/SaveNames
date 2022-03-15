@@ -1,3 +1,4 @@
+@extends('layouts.app')
 <body>
     
     <form action='/worker/create' >
@@ -31,7 +32,7 @@
             </option>
             @endforeach
         </select>
-        <input type="submit" />
+        <input type="submit" class="btn btn-light" />
             
     </form>
 </body>

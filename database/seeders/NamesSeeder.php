@@ -22,7 +22,8 @@ class NamesSeeder extends Seeder {
             'age' => rand(10, 29)
         ]);
 
-        Names::factory(34)
+        
+        Names::factory(340)
                 
                 ->create();
     }

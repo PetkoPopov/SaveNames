@@ -1,4 +1,4 @@
-
+@extends('layouts.app')
 <div>
 <h4>PAGE Number </h4> 
 @foreach( $kws as $k )
@@ -9,16 +9,16 @@
 
 </div>
  <div>
-     <a href="/kw/create">Въведи данни</a><!-- comment -->
+     <a href="/kw/create" class="btn btn-info" role="button">Въведи данни</a><!-- comment -->
      ==========
-     <a href="/kw/calc">избери ден</a>
+     <a href="/kw/calc" class="btn btn-info" role="button">избери ден</a>
      ==========
         
-     <a href="/showForMonth">избери месец</a>
+     <a href="/showForMonth" class="btn btn-info" role="button">избери месец</a>
      ==========<!-- comment -->
-     <a href="/kw/period">избери период </a><!-- comment -->
+     <a href="/kw/period" class="btn btn-info" role="button">избери период </a><!-- comment -->
      ===========<!-- comment -->
-     <a href="/kw/0"> покажи всички записи</a>
+     <a href="/kw/0" class="btn btn-info" role="button"> покажи всички записи</a>
       </div>
  <p>PAGES
 <span>{{$kws->links()}}</span> 

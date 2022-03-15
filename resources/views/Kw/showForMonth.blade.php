@@ -1,3 +1,4 @@
+@extends('layouts.app')
 @if(isset($msg))
 <h2>{{$msg}}</h2>
 @else
@@ -14,12 +15,12 @@
 </div>
 @endif
 <div>
-    <a href="/showForMonth">Избери друг месец</a>
+    <a href="/showForMonth" class="btn btn-info" role="button">Избери друг месец</a>
 </div><div>
-    <a href="/kw/create">Въведи данни</a>
+    <a href="/kw/create" class="btn btn-info" role="button">Въведи данни</a>
 </div><div>
-    <a href="/kw/calc"> покажи за определен ден</a>
+    <a href="/kw/calc" class="btn btn-info" role="button"> покажи за определен ден</a>
 </div>
 <div>
-    <a href="/kw/0">Покажи всичко</a>
+    <a href="/kw/0" class="btn btn-info" role="button">Покажи всичко</a>
 </div>

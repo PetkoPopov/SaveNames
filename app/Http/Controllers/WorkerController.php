@@ -8,17 +8,17 @@ use App\Http\Requests\UpdateWorkerRequest;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Activity;
-class WorkerController extends Controller
-{
+
+class WorkerController extends Controller {
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
+    public function index() {
         $workers = Worker::all();
-        return view('/work/all',['workers'=>$workers]);
+        return view('/work/all', ['workers' => $workers]);
     }
 
     /**
@@ -26,42 +26,41 @@ class WorkerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
-    {
-        if($request->activity){
-            $activity =$request->activity;
-            $act= new Activity();
+    public function create(Request $request) {
+        if ($request->activity != null) {
+//            dd('CONTRLLER');
+            $activity = $request->activity;
+            $act = new Activity();
             $act->activity = $activity;
-          
-                    
-        }else{
+        } else {
             $activity = $request->activitySelect;
         }
-        
-        if($this->authorize('create',Worker::class)){
-          $worker = new Worker;
-          
-          
-          $worker ->user_id = $request->user_id;
-          $worker->date = $request->date;;
-          $worker->expl = $request->expl;
-          $worker->wage = $request->wage;
-          $worker->activity = $activity;
-          $worker->location = $request->location;
-          if($worker->save()){
-              $act->save();
-          }
-          
-        return redirect('/worker/all');
-          
+
+        if ($this->authorize('create', Worker::class)) {
+            $worker = new Worker;
+
+            $worker->user_id = $request->user_id;
+            $worker->date = $request->date;
+            ;
+            $worker->expl = $request->expl;
+            $worker->wage = $request->wage;
+            $worker->activity = $activity;
+            $worker->location = $request->location;
+            if ($worker->save()) {
+                if (isset($act)) {
+                    $act->save();
+                }
+            }
+
+            return redirect('/worker/all');
         }
-        
     }
+
     public function new() {
-        
+
         $allUsers = User::all();
         $allActivity = Activity::all();
-        return view('/work/create')->with(['allUsers'=>$allUsers,'allActivity'=>$allActivity]);
+        return view('/work/create')->with(['allUsers' => $allUsers, 'allActivity' => $allActivity]);
     }
 
     /**
@@ -70,8 +69,7 @@ class WorkerController extends Controller
      * @param  \App\Http\Requests\StoreWorkerRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreWorkerRequest $request)
-    {
+    public function store(StoreWorkerRequest $request) {
         //
     }
 
@@ -81,8 +79,7 @@ class WorkerController extends Controller
      * @param  \App\Models\Worker  $worker
      * @return \Illuminate\Http\Response
      */
-    public function show(Worker $worker)
-    {
+    public function show(Worker $worker) {
         //
     }
 
@@ -92,8 +89,7 @@ class WorkerController extends Controller
      * @param  \App\Models\Worker  $worker
      * @return \Illuminate\Http\Response
      */
-    public function edit(Worker $worker)
-    {
+    public function edit(Worker $worker) {
         //
     }
 
@@ -104,15 +100,14 @@ class WorkerController extends Controller
      * @param  \App\Models\Worker  $worker
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateWorkerRequest $request, Worker $worker)
-    {
+    public function update(UpdateWorkerRequest $request, Worker $worker) {
         //
     }
 
-    public function destroy($id)
-    {
-       $worker = Worker::find($id);
+    public function destroy($id) {
+        $worker = Worker::find($id);
         $worker->delete();
         return redirect('/worker/all');
     }
+
 }

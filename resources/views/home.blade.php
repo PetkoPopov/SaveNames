@@ -5,10 +5,10 @@
 
 <div style="background-color: #1299DA" class="container">
     <div class="row">
-        <div class="col-md-4">
-        <a href="/kw/create"> go to KW insert DATA</a></div>
-          <div class="col-md-4"><a href="/names/0/id"> go to Names </a></div>
-          <div class="col-md-4"><a href="/worker/all"> work </a></div>
+
+        <a href="/kw/create"  class="btn btn-info" role="button"> go to KW insert DATA</a>
+        <a href="/names/0/id" class="btn btn-info" role="button"> go to Names </a>
+        <a href="/worker/all" class="btn btn-info" role="button"> work </a>
         <div class="card-header">{{ __('Dashboard') }}</div>
 
         @if (session('status'))
@@ -19,7 +19,7 @@
 
         @can('create', \App\Model\Worker::class)
 
-        <a href="/worker/new" style='background-color: lightgreen;'> You authorise to create worker</a>
+        <a href="/worker/new" class="btn btn-success" role="button"> You authorise to create worker</a>
 
         @endcan
 
